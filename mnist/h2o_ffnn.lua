@@ -168,6 +168,7 @@ function train()
 			 learningRateDecay = 5e-7}
 	print("here too")
 	optim.sgd(feval, parameters, config)
+	print("here three")
 
    end
 
