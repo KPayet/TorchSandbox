@@ -125,7 +125,7 @@ function train()
 	 table.insert(inputs, input)
 	 table.insert(targets, target)
       end
-
+	print("good here")
       -- create closure to evaluate f(X) and df/dX
       local feval = function(x)
 		       -- get new parameters
