@@ -29,13 +29,15 @@ test = torch.Tensor(test)
 trainData = {
     
     data = train[{{},{1,784}}],
-    labels = train[{{}, 785}]
+    labels = train[{{}, 785}],
+    size = function() return #trainData.data[1] end
 
 }
 testData = {
     
     data = test[{{},{1,784}}],
-    labels = test[{{}, 785}]
+    labels = test[{{}, 785}],
+    size = function() return #testData.data[1] end
 
 }
 
