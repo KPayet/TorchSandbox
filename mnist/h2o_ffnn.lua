@@ -12,9 +12,10 @@ local path = "./data/"
 local train_file = "h2o_train.csv"
 local test_file = "h2o_test.csv"
 
-if ~os.execute("ls data/"..train_file) then
+if not os.execute("ls data/"..train_file) then
+    print("Uncompressing data...")
     os.execute("gzip -d "..path..train_file..".gz")
     os.execute("gzip -d "..path..test_file..".gz")
 end
 
-train = csvigo.load(path
+--train = csvigo.load(path
