@@ -4,9 +4,13 @@
 
 -- Loading data
 
-path = "./data/"
-train_file = "h2o_train.csv.gz"
-test_file = "h2o_test.csv.gz"
+require 'os'
+require 'nn'
+require 'csvigo'
 
-os.execute("gzip -d "..path..trainfile)
-os.execute("gzip -d "..path..testfile)
+local path = "./data/"
+local train_file = "h2o_train.csv.gz"
+local test_file = "h2o_test.csv.gz"
+
+os.execute("gzip -d "..path..train_file)
+os.execute("gzip -d "..path..test_file)
