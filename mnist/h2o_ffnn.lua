@@ -19,8 +19,9 @@ if not os.execute("ls data/"..train_file) then
     os.execute("gzip -d "..data_path..test_file..".gz")
 end
 
-train = csvigo.load{path = data_path..train_file, mode=raw, header=false}
+train = csvigo.load{path = data_path..train_file, mode="raw", header=false}
 train = torch.Tensor(train)
-test = csvigo.load{path = data_path..test_file, mode=raw, header=false}
+test = csvigo.load{path = data_path..test_file, mode="raw", header=false}
 test = torch.Tensor(test)
+
 
