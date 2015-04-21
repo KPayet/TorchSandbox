@@ -4,4 +4,9 @@
 
 -- Loading data
 
+path = "./data/"
+train_file = "h2o_train.csv.gz"
+test_file = "h2o_test.csv.gz"
 
+os.execute("gzip -d "..path..trainfile)
+os.execute("gzip -d "..path..testfile)
