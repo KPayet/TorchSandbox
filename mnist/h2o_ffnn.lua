@@ -57,20 +57,20 @@ noutputs = 10
 model = nn.Sequential()
 
 --1st layer
-model:add(Reshape(ninputs))
-model:add(Linear(ninputs, nhiddens[1]))
+model:add(nn.Reshape(ninputs))
+model:add(nn.Linear(ninputs, nhiddens[1]))
 model:add(nn.Tanh())
 
 --2nd layer
-model:add(Linear(nhiddens[1], nhiddens[2]))
+model:add(nn.Linear(nhiddens[1], nhiddens[2]))
 model:add(nn.Tanh())
 
 --3rd layer
-model:add(Linear(nhiddens[2], nhiddens[3]))
+model:add(nn.Linear(nhiddens[2], nhiddens[3]))
 model:add(nn.Tanh())
 
 --Output layer
-model:add(Linear(nhiddens[3], noutputs))
+model:add(nn.Linear(nhiddens[3], noutputs))
 model:add(nn.LogSoftMax()) -- needed for NLL criterion
 
 --Loss function
