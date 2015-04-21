@@ -170,7 +170,7 @@ function train()
 
    end
 
-   -- time taken
+ --[[  -- time taken
    time = sys.clock() - time
    time = time / trainData:size()
    print("==> time to learn 1 sample = " .. (time*1000) .. 'ms')
@@ -193,6 +193,6 @@ function train()
    torch.save(filename, model)
 
    -- next epoch
-   epoch = epoch + 1
+   epoch = epoch + 1 --]]
 end
 
