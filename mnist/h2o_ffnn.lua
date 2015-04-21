@@ -93,7 +93,7 @@ if model then
     parameters,gradParameters = model:getParameters()
 end
 
-trsize = trainData.data.size()
+trsize = trainData:size()
 batchSize = 1
 
 -- Training function
