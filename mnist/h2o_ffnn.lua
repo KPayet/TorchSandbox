@@ -24,4 +24,18 @@ train = torch.Tensor(train)
 test = csvigo.load{path = data_path..test_file, mode="raw", header=false}
 test = torch.Tensor(test)
 
+-- Build model
+
+trainData = {
+    
+    data = train[{{},{1,784}}],
+    labels = train[{{}, 785}]
+
+}
+testData = {
+    
+    data = test[{{},{1,784}}],
+    labels = test[{{}, 785}]
+
+}
 
