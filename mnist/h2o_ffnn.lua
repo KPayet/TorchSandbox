@@ -9,18 +9,18 @@ require 'torch'
 require 'nn'
 require 'csvigo'
 
-local path = "./data/"
+local data_path = "./data/"
 local train_file = "h2o_train.csv"
 local test_file = "h2o_test.csv"
 
 if not os.execute("ls data/"..train_file) then
     print("Uncompressing data...")
-    os.execute("gzip -d "..path..train_file..".gz")
-    os.execute("gzip -d "..path..test_file..".gz")
+    os.execute("gzip -d "..data_path..train_file..".gz")
+    os.execute("gzip -d "..data_path..test_file..".gz")
 end
 
-train = csvigo.load(path = path..train_file, mode=raw, header=false)
+train = csvigo.load(path = data_path..train_file, mode=raw, header=false)
 train = torch.Tensor(train)
-test = csvigo.load(path = path..test_file, mode=raw, header=false)
+test = csvigo.load(path = data_path..test_file, mode=raw, header=false)
 test = torch.Tensor(test)
 
