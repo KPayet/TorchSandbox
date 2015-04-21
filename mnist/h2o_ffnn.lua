@@ -24,20 +24,31 @@ train = torch.Tensor(train)
 test = csvigo.load{path = data_path..test_file, mode="raw", header=false}
 test = torch.Tensor(test)
 
--- Build model
-
 trainData = {
     
     data = train[{{},{1,784}}],
     labels = train[{{}, 785}],
-    size = function() return #trainData.data[1] end
-
+    size = function() return (#trainData.data)[1] end
 }
 testData = {
     
     data = test[{{},{1,784}}],
     labels = test[{{}, 785}],
-    size = function() return #testData.data[1] end
-
+    size = function() return (#testData.data)[1] end
 }
+
+-- Normalize features globally
+
+mean = trainData.data:mean()
+std = trainData.data:std()
+
+trainData.data:add(-mean)
+trainData.data:div(std)
+
+testData.data:add(-mean)
+testData.data:div(std)
+    
+
+-- Build model
+
 
