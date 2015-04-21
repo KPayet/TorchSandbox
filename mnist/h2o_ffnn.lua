@@ -166,11 +166,12 @@ function train()
 			 weightDecay = 0,
 			 momentum = 0,
 			 learningRateDecay = 5e-7}
+	print("here too")
 	optim.sgd(feval, parameters, config)
 
    end
 
- --[[  -- time taken
+   -- time taken
    time = sys.clock() - time
    time = time / trainData:size()
    print("==> time to learn 1 sample = " .. (time*1000) .. 'ms')
@@ -193,6 +194,6 @@ function train()
    torch.save(filename, model)
 
    -- next epoch
-   epoch = epoch + 1 --]]
+   epoch = epoch + 1
 end
 
