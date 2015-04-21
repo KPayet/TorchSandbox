@@ -9,8 +9,12 @@ require 'nn'
 require 'csvigo'
 
 local path = "./data/"
-local train_file = "h2o_train.csv.gz"
-local test_file = "h2o_test.csv.gz"
+local train_file = "h2o_train.csv"
+local test_file = "h2o_test.csv"
 
-os.execute("gzip -d "..path..train_file)
-os.execute("gzip -d "..path..test_file)
+if ~os.execute("ls data/"..train_file) then
+    os.execute("gzip -d "..path..train_file..".gz")
+    os.execute("gzip -d "..path..test_file..".gz")
+end
+
+train = csvigo.load(path
