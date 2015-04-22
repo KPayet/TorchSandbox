@@ -27,8 +27,8 @@ test = torch.Tensor(test)
 
 trainData = {
     
-    data = train[{{1,10000},{1,784}}],
-    labels = train[{{1,10000}, 785}],
+    data = train[{{},{1,784}}],
+    labels = train[{{}, 785}],
     size = function() return (#trainData.data)[1] end
 }
 testData = {
