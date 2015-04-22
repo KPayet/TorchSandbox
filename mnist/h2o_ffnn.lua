@@ -199,6 +199,7 @@ function train()
 end
 
 function test()
+   print("inside")
    -- local vars
    local time = sys.clock()
 
