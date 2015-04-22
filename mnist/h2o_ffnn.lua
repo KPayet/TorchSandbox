@@ -127,7 +127,7 @@ function train()
 	 table.insert(inputs, input)
 	 table.insert(targets, target)
       end
-	print("good here")
+	
       -- create closure to evaluate f(X) and df/dX
       local feval = function(x)
 		       -- get new parameters
@@ -140,16 +140,16 @@ function train()
 
 		       -- f is the average of all criterions
 		       local f = 0
-			print("here four")
+			
 		       -- evaluate function for complete mini batch
 		       for i = 1,#inputs do
 			  -- estimate f
 			  local output = model:forward(inputs[i])
-			  print(output)
+			  if targets[i]==0 then targets[i]=10 end
 			  print(targets[i])
 			  local err = criterion:forward(output, targets[i])
 			  f = f + err
-			  print("here five")
+			  
 			  -- estimate df/dW
 			  local df_do = criterion:backward(output, targets[i])
 			  model:backward(inputs[i], df_do)
@@ -170,9 +170,9 @@ function train()
 			 weightDecay = 0,
 			 momentum = 0,
 			 learningRateDecay = 5e-7}
-	print("here too")
+	
 	optim.sgd(feval, parameters, config)
-	print("here three")
+	
 
    end
 
