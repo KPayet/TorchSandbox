@@ -199,7 +199,6 @@ function train()
 end
 
 function test()
-   print("inside")
    -- local vars
    local time = sys.clock()
 
@@ -235,5 +234,10 @@ function test()
 
    -- update log/plot
    testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
+end
+
+while true
+   train()
+   test()
 end
 
