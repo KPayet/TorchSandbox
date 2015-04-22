@@ -187,14 +187,10 @@ function train()
 
    -- update logger/plot
    trainLogger:add{['% mean class accuracy (train set)'] = confusion.totalValid * 100}
-   if opt.plot then
-      trainLogger:style{['% mean class accuracy (train set)'] = '-'}
-      trainLogger:plot()
-   end
 
    -- save/log current net
    local filename = paths.concat('./model_'..epoch..'.net')
-   os.execute('mkdir -p ' .. sys.dirname(filename))
+   
    print('==> saving model to '..filename)
    torch.save(filename, model)
 
