@@ -104,7 +104,9 @@ function train()
 
    -- local vars
    local time = sys.clock()
-
+   
+   model:training()
+    
    -- shuffle at each epoch
    shuffle = torch.randperm(trsize)
 
@@ -138,7 +140,7 @@ function train()
 
 		       -- f is the average of all criterions
 		       local f = 0
-
+			print("here four")
 		       -- evaluate function for complete mini batch
 		       for i = 1,#inputs do
 			  -- estimate f
