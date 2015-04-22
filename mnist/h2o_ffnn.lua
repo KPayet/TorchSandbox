@@ -27,8 +27,8 @@ test = torch.Tensor(test)
 
 trainData = {
     
-    data = train[{{},{1,784}}],
-    labels = train[{{}, 785}],
+    data = train[{{1,10000},{1,784}}],
+    labels = train[{{1,10000}, 785}],
     size = function() return (#trainData.data)[1] end
 }
 testData = {
@@ -86,8 +86,8 @@ classes = {'1','2','3','4','5','6','7','8','9','0'}
 confusion = optim.ConfusionMatrix(classes)
 
 -- Log results to files
-trainLogger = optim.Logger(paths.concat('./train.log'))
-testLogger = optim.Logger(paths.concat('./test.log'))
+trainLogger = optim.Logger('./h2o_ffnn_train.log')
+testLogger = optim.Logger('./h2o_ffnn_test.log')
 
 if model then
     parameters,gradParameters = model:getParameters()
@@ -189,7 +189,7 @@ function train()
    trainLogger:add{['% mean class accuracy (train set)'] = confusion.totalValid * 100}
 
    -- save/log current net
-   local filename = paths.concat('./model_'..epoch..'.net')
+   local filename = paths.concat('./h2o_ffnn_model_'..epoch..'.net')
    
    print('==> saving model to '..filename)
    torch.save(filename, model)
