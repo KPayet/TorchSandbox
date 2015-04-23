@@ -50,7 +50,7 @@ testData.data:add(-mean)
 testData.data:div(std)
 
 ninputs = (#trainData.data)[2]
-nhiddens = {784, 512, 256}
+nhiddens = {1024, 2048, 2048, 1024, 512}
 noutputs = 10
 
 -- Build model
@@ -194,7 +194,7 @@ function train(maxEntries)
    local filename = paths.concat('./h2o_ffnn_model_'..epoch..'.net')
    
    print('==> saving model to '..filename)
-   torch.save(filename, model)
+  -- torch.save(filename, model)
 
    -- next epoch
    epoch = epoch + 1
@@ -244,7 +244,7 @@ end
 
 epoch=0
 while epoch<11 do
-   train(500)
-   test(200)
+   train()
+   test()
 end
 
