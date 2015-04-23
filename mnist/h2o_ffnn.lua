@@ -16,8 +16,8 @@ local test_file = "h2o_test.csv"
 
 if not os.execute("ls data/"..train_file) then
     print("Uncompressing data...")
-    os.execute("gzip -d "..data_path..train_file..".gz")
-    os.execute("gzip -d "..data_path..test_file..".gz")
+    os.execute("gzip -dk "..data_path..train_file..".gz")
+    os.execute("gzip -dk "..data_path..test_file..".gz")
 end
 
 train = csvigo.load{path = data_path..train_file, mode="raw", header=false}
