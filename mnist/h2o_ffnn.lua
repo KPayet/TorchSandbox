@@ -226,6 +226,8 @@ function test(maxEntries)
       cachedparams = parameters:clone()
       parameters:copy(average)
    end
+   
+   model:evaluate()
 
    -- test over test data
    print('==> testing on test set:')
