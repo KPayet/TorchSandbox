@@ -61,27 +61,27 @@ model = nn.Sequential()
 model:add(nn.Reshape(ninputs))
 --model:add(nn.Dropout(0.2))
 model:add(nn.Linear(ninputs, nhiddens[1]))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 
 
 --2nd layer
 model:add(nn.Linear(nhiddens[1], nhiddens[2]))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 model:add(nn.Dropout(0.5))
 
 --3rd layer
 model:add(nn.Linear(nhiddens[2], nhiddens[3]))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 model:add(nn.Dropout(0.5))
 
 --4th layer
 model:add(nn.Linear(nhiddens[3], nhiddens[4]))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 model:add(nn.Dropout(0.5))
 
 --5th layer
 model:add(nn.Linear(nhiddens[4], nhiddens[5]))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 model:add(nn.Dropout(0.5))
 
 --Output layer
