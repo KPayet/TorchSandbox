@@ -59,7 +59,7 @@ model = nn.Sequential()
 
 --1st layer
 model:add(nn.Reshape(ninputs))
-model:add(nn.Dropout(0.2))
+--model:add(nn.Dropout(0.2))
 model:add(nn.Linear(ninputs, nhiddens[1]))
 model:add(nn.ReLU())
 
