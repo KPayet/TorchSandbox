@@ -70,8 +70,16 @@ model:add(nn.Tanh())
 model:add(nn.Linear(nhiddens[2], nhiddens[3]))
 model:add(nn.Tanh())
 
+--4th layer
+model:add(nn.Linear(nhiddens[3], nhiddens[4]))
+model:add(nn.Tanh())
+
+--5th layer
+model:add(nn.Linear(nhiddens[4], nhiddens[5]))
+model:add(nn.Tanh())
+
 --Output layer
-model:add(nn.Linear(nhiddens[3], noutputs))
+model:add(nn.Linear(nhiddens[5], noutputs))
 model:add(nn.LogSoftMax()) -- needed for NLL criterion
 
 --Loss function
