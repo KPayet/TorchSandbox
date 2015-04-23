@@ -242,8 +242,9 @@ function test(maxEntries)
    testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
 end
 
-while true do
-   train(5000)
-   test(2000)
+epoch=0
+while epoch<11 do
+   train(500)
+   test(200)
 end
 
