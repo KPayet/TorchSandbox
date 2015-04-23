@@ -217,6 +217,7 @@ function test()
       -- get new sample
       local input = testData.data[t]:double()
       local target = testData.labels[t]
+      if target == 0 then target = 10 end
 
       -- test sample
       local pred = model:forward(input)
