@@ -97,7 +97,9 @@ trsize = trainData:size()
 batchSize = 1
 
 -- Training function
-function train()
+function train(maxEntries)
+   
+   local maxEntries = maxEntries or trainData:size()   
 
    -- epoch tracker
    epoch = epoch or 1
@@ -108,19 +110,19 @@ function train()
    model:training()
     
    -- shuffle at each epoch
-   shuffle = torch.randperm(trsize)
+   shuffle = torch.randperm(maxEntries)
 
    -- do one epoch
    print('==> doing epoch on training data:')
    print("==> online epoch # " .. epoch)
-   for t = 1,trainData:size(),batchSize do
+   for t = 1,maxEntries,batchSize do
       -- disp progress
-      xlua.progress(t, trainData:size())
+      xlua.progress(t, maxEntries)
 
       -- create mini batch
       local inputs = {}
       local targets = {}
-      for i = t,math.min(t+batchSize-1,trainData:size()) do
+      for i = t,math.min(t+batchSize-1,maxEntries) do
 	 -- load new sample
 	 local input = trainData.data[shuffle[i]]:double()
 	 local target = trainData.labels[shuffle[i]]
@@ -178,7 +180,7 @@ function train()
 
    -- time taken
    time = sys.clock() - time
-   time = time / trainData:size()
+   time = time / maxEntries
    print("==> time to learn 1 sample = " .. (time*1000) .. 'ms')
 
    -- print confusion matrix
@@ -198,7 +200,10 @@ function train()
    epoch = epoch + 1
 end
 
-function test()
+function test(maxEntries)
+   
+   local maxEntries = maxEntries or testData:size()
+   
    -- local vars
    local time = sys.clock()
 
@@ -210,9 +215,9 @@ function test()
 
    -- test over test data
    print('==> testing on test set:')
-   for t = 1,testData:size() do
+   for t = 1,maxEntries do
       -- disp progress
-      xlua.progress(t, testData:size())
+      xlua.progress(t, maxEntries)
 
       -- get new sample
       local input = testData.data[t]:double()
@@ -226,7 +231,7 @@ function test()
 
    -- timing
    time = sys.clock() - time
-   time = time / testData:size()
+   time = time / maxEntries
    print("==> time to test 1 sample = " .. (time*1000) .. 'ms')
 
    -- print confusion matrix
@@ -237,8 +242,8 @@ function test()
    testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
 end
 
-while true
-   train()
-   test()
+while true do
+   train(5000)
+   test(2000)
 end
 
