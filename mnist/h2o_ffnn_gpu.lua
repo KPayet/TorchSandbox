@@ -7,6 +7,8 @@
 require 'os'
 require 'torch'
 require 'nn'
+require 'cutorch'
+require 'cunn'
 require 'csvigo'
 require 'optim'
 
@@ -53,6 +55,10 @@ ninputs = (#trainData.data)[2]
 nhiddens = {1024, 2048, 2048, 1024, 512}
 noutputs = 10
 
+-- Init GPU
+
+print(  cutorch.getDeviceProperties(cutorch.getDevice()) )
+
 -- Build model
 
 model = nn.Sequential()
@@ -87,6 +93,8 @@ model:add(nn.Dropout(0.5))
 --Output layer
 model:add(nn.Linear(nhiddens[5], noutputs))
 model:add(nn.LogSoftMax()) -- needed for NLL criterion
+
+model:cuda()
 
 --Loss function
 
@@ -160,7 +168,8 @@ function train(maxEntries)
 		       -- evaluate function for complete mini batch
 		       for i = 1,#inputs do
 			  -- estimate f
-			  local output = model:forward(inputs[i])
+			  local output_gpu = model:forward(inputs[i]:cuda())
+			  local output = output_gpu:float()
 			  if targets[i]==0 then targets[i]=10 end
 			  
 			  local err = criterion:forward(output, targets[i])
@@ -168,7 +177,7 @@ function train(maxEntries)
 			  
 			  -- estimate df/dW
 			  local df_do = criterion:backward(output, targets[i])
-			  model:backward(inputs[i], df_do)
+			  model:backward(inputs[i]:cuda(), df_do:cuda())
 
 			  -- update confusion
 			  confusion:add(output, targets[i])
@@ -241,7 +250,8 @@ function test(maxEntries)
       if target == 0 then target = 10 end
 
       -- test sample
-      local pred = model:forward(input)
+      local pred_gpu = model:forward(input:cuda())
+      local pred = pred_gpu:float()
       confusion:add(pred, target)
    end
 
@@ -258,7 +268,7 @@ function test(maxEntries)
    testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
 end
 
-epoch=0
+epoch=1
 while epoch<11 do
    train(5000)
    test(2000)
