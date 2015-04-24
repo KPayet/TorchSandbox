@@ -173,11 +173,11 @@ function train(maxEntries)
 			  --local output = output_gpu:double()
 			  if targets[i]==0 then targets[i]=10 end
 			  
-			  local err = criterion:forward(output_gpu, targets[i]:cuda())
+			  local err = criterion:forward(output_gpu, targets[i])
 			  f = f + err
 			  
 			  -- estimate df/dW
-			  local df_do = criterion:backward(output_gpu, targets[i]:cuda())
+			  local df_do = criterion:backward(output_gpu, targets[i])
 			  model:backward(inputs[i]:cuda(), df_do:cuda())
 
 			  -- update confusion
