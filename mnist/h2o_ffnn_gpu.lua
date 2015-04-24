@@ -271,7 +271,7 @@ end
 
 epoch=1
 while epoch<11 do
-   train(5000)
-   test(2000)
+   train()
+   test()
 end
 
