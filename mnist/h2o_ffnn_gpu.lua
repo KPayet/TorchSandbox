@@ -99,6 +99,7 @@ model:cuda()
 --Loss function
 
 criterion = nn.ClassNLLCriterion()
+criterion:cuda()
 
 -- Training -- This part is an almost copy/paste of http://code.madbits.com/wiki/doku.php?id=tutorial_supervised_4_train
 
@@ -169,14 +170,14 @@ function train(maxEntries)
 		       for i = 1,#inputs do
 			  -- estimate f
 			  local output_gpu = model:forward(inputs[i]:cuda())
-			  local output = output_gpu:float()
+			  --local output = output_gpu:double()
 			  if targets[i]==0 then targets[i]=10 end
 			  
-			  local err = criterion:forward(output, targets[i])
+			  local err = criterion:forward(output_gpu, targets[i]:cuda())
 			  f = f + err
 			  
 			  -- estimate df/dW
-			  local df_do = criterion:backward(output, targets[i])
+			  local df_do = criterion:backward(output_gpu, targets[i]:cuda())
 			  model:backward(inputs[i]:cuda(), df_do:cuda())
 
 			  -- update confusion
@@ -251,7 +252,7 @@ function test(maxEntries)
 
       -- test sample
       local pred_gpu = model:forward(input:cuda())
-      local pred = pred_gpu:float()
+      local pred = pred_gpu:double()
       confusion:add(pred, target)
    end
 
