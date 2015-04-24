@@ -170,7 +170,7 @@ function train(maxEntries)
 		       for i = 1,#inputs do
 			  -- estimate f
 			  local output_gpu = model:forward(inputs[i]:cuda())
-			  --local output = output_gpu:double()
+			  local output = output_gpu:double()
 			  if targets[i]==0 then targets[i]=10 end
 			  
 			  local err = criterion:forward(output_gpu, targets[i])
