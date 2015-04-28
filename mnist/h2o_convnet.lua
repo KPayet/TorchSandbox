@@ -7,8 +7,8 @@
 require 'os'
 require 'torch'
 require 'nn'
---require 'cutorch'
---require 'cunn'
+require 'cutorch'
+require 'cunn'
 require 'csvigo'
 require 'optim'
 
@@ -58,7 +58,7 @@ noutputs = 10
 
 -- Init GPU
 
---print(  cutorch.getDeviceProperties(cutorch.getDevice()) )
+print(  cutorch.getDeviceProperties(cutorch.getDevice()) )
 
 -- Build model
 
@@ -95,7 +95,7 @@ model:add(nn.Tanh())
 model:add(nn.Linear(128, noutputs))
 model:add(nn.LogSoftMax()) -- needed for NLL criterion
 
---model:cuda()
+model:cuda()
 
 --Loss function
 
