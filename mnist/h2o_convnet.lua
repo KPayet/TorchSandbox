@@ -269,10 +269,10 @@ function test(maxEntries)
    -- update log/plot
    testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
 end
-[[--
+--[[
 epoch=1
 while epoch<11 do
    train()
    test()
-end]]--
+end--]]--
 
