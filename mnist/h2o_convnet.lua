@@ -171,9 +171,11 @@ function train(maxEntries)
 			  -- estimate f
 			  print("here too")
 			  local output = model:forward(inputs[i]:cuda())
-			  output = output:double()
-			  if targets[i]==0 then targets[i]=10 end
 			  print("here three")
+			  output = output:double()
+			  print("here four")
+			  if targets[i]==0 then targets[i]=10 end
+			  
 			  local err = criterion:forward(output, targets[i])
 			  f = f + err
 			  
