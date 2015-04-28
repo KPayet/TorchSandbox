@@ -7,8 +7,8 @@
 require 'os'
 require 'torch'
 require 'nn'
-require 'cutorch'
-require 'cunn'
+--require 'cutorch'
+--require 'cunn'
 require 'csvigo'
 require 'optim'
 
