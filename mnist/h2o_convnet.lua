@@ -169,8 +169,8 @@ function train(maxEntries)
 		       -- evaluate function for complete mini batch
 		       for i = 1,#inputs do
 			  -- estimate f
-			  local output_gpu = model:forward(inputs[i]:cuda())
-			  local output = output_gpu:double()
+			  local output = model:forward(inputs[i]:cuda())
+			  output = output:double()
 			  if targets[i]==0 then targets[i]=10 end
 			  
 			  local err = criterion:forward(output, targets[i])
@@ -196,7 +196,7 @@ function train(maxEntries)
 			 weightDecay = 0,
 			 momentum = 0,
 			 learningRateDecay = 5e-7}
-	
+	print("here")
 	optim.sgd(feval, parameters, config)
 	
 
