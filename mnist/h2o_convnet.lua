@@ -9,6 +9,7 @@ require 'torch'
 require 'nn'
 require 'cutorch'
 require 'cunn'
+require 'cudnn'
 require 'csvigo'
 require 'optim'
 
@@ -68,28 +69,28 @@ model:add(nn.Reshape(1,28,28))
 
 -- 1st conv layer
 model:add(nn.SpatialConvolutionMM(1,16,5,5,1,1))
-model:add(nn.Tanh())
+model:add(cudnn.ReLU())
 model:add(nn.SpatialMaxPooling(2,2))
 
 -- 2nd conv layer
 model:add(nn.SpatialConvolutionMM(16,256,5,5,1,1,1))
-model:add(nn.Tanh())
+model:add(cudnn.ReLU())
 model:add(nn.SpatialMaxPooling(2,2))
 
 -- 2nd conv layer
 model:add(nn.SpatialConvolutionMM(256,256,5,5))
-model:add(nn.Tanh())
+model:add(cudnn.ReLU())
 
 
 -- Full connected ff net
 model:add(nn.Reshape(256))
 model:add(nn.Linear(256, 256))
-model:add(nn.Tanh())
+model:add(cudnn.ReLU())
 
 --
 
 model:add(nn.Linear(256, 128))
-model:add(nn.Tanh())
+model:add(cudnn.ReLU())
 
 --Output layer
 model:add(nn.Linear(128, noutputs))
