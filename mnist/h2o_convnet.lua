@@ -165,25 +165,25 @@ function train(maxEntries)
 
 		       -- f is the average of all criterions
 		       local f = 0
-			
+			print("here too")
 		       -- evaluate function for complete mini batch
 		       for i = 1,#inputs do
 			  -- estimate f
 			  local output = model:forward(inputs[i]:cuda())
 			  output = output:double()
 			  if targets[i]==0 then targets[i]=10 end
-			  
+			  print("here three")
 			  local err = criterion:forward(output, targets[i])
 			  f = f + err
-			  
+			  print("here four")
 			  -- estimate df/dW
 			  local df_do = criterion:backward(output, targets[i])
 			  model:backward(inputs[i]:cuda(), df_do:cuda())
-
+				print("here five")
 			  -- update confusion
 			  confusion:add(output, targets[i])
 		       end
-
+			print("here six")
 		       -- normalize gradients and f(X)
 		       gradParameters:div(#inputs)
 		       f = f/#inputs
