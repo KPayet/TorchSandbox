@@ -68,17 +68,17 @@ model:add(nn.Reshape(1,28,28))
 
 -- 1st conv layer
 model:add(nn.SpatialConvolutionMM(1,16,5,5,1,1))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 model:add(nn.SpatialMaxPooling(2,2))
 
 -- 2nd conv layer
 model:add(nn.SpatialConvolutionMM(16,256,5,5,1,1,1))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 model:add(nn.SpatialMaxPooling(2,2))
 
 -- 2nd conv layer
 model:add(nn.SpatialConvolutionMM(256,256,5,5))
-model:add(nn.ReLU())
+model:add(nn.Tanh())
 
 
 -- Full connected ff net
