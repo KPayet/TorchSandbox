@@ -165,15 +165,15 @@ function train(maxEntries)
 
 		       -- f is the average of all criterions
 		       local f = 0
-			print("here too")
+		
 		       -- evaluate function for complete mini batch
 		       for i = 1,#inputs do
 			  -- estimate f
-			  print("here three")
+			  print("here too")
 			  local output = model:forward(inputs[i]:cuda())
 			  output = output:double()
 			  if targets[i]==0 then targets[i]=10 end
-			  
+			  print("here three")
 			  local err = criterion:forward(output, targets[i])
 			  f = f + err
 			  
