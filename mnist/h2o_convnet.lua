@@ -52,9 +52,6 @@ trainData.data:div(std)
 testData.data:add(-mean)
 testData.data:div(std)
 
---ninputs = (#trainData.data)[2]
---nfeats = {1, 16}
---nhiddens = {1024, 2048, 2048, 1024, 512}
 noutputs = 10
 
 -- Init GPU
@@ -77,20 +74,22 @@ model:add(nn.SpatialConvolutionMM(16,256,5,5,1,1,1))
 model:add(cudnn.ReLU())
 model:add(nn.SpatialMaxPooling(2,2))
 
--- 2nd conv layer
+-- 3rd conv layer
 model:add(nn.SpatialConvolutionMM(256,256,5,5))
 model:add(cudnn.ReLU())
-
+model:add(nn.Reshape(256))
+model:add(nn.Dropout(0.5))
 
 -- Full connected ff net
-model:add(nn.Reshape(256))
 model:add(nn.Linear(256, 256))
 model:add(cudnn.ReLU())
+model:add(nn.Dropout(0.5))
 
 --
 
 model:add(nn.Linear(256, 128))
 model:add(cudnn.ReLU())
+model:add(nn.Dropout(0.5))
 
 --Output layer
 model:add(nn.Linear(128, noutputs))
