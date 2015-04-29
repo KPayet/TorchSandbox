@@ -109,8 +109,8 @@ classes = {'1','2','3','4','5','6','7','8','9','0'}
 confusion = optim.ConfusionMatrix(classes)
 
 -- Log results to files
-trainLogger = optim.Logger('./h2o_ffnn_train.log')
-testLogger = optim.Logger('./h2o_ffnn_test.log')
+trainLogger = optim.Logger('./h2o_convnet_train.log')
+testLogger = optim.Logger('./h2o_convnet_test.log')
 
 if model then
     parameters,gradParameters = model:getParameters()
@@ -206,18 +206,18 @@ function train(maxEntries)
    time = time / maxEntries
    print("==> time to learn 1 sample = " .. (time*1000) .. 'ms')
 
+   -- update logger/plot
+   trainLogger:add{['% mean class accuracy (train set)'] = confusion.totalValid * 100}
+   
    -- print confusion matrix
    print(confusion)
    confusion:zero()
-
-   -- update logger/plot
-   trainLogger:add{['% mean class accuracy (train set)'] = confusion.totalValid * 100}
 
    -- save/log current net
    local filename = paths.concat('./h2o_ffnn_model_'..epoch..'.net')
    
    print('==> saving model to '..filename)
-  -- torch.save(filename, model)
+   torch.save(filename, model)
 
    -- next epoch
    epoch = epoch + 1
@@ -260,12 +260,12 @@ function test(maxEntries)
    time = time / maxEntries
    print("==> time to test 1 sample = " .. (time*1000) .. 'ms')
 
+   -- update log/plot
+   testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
+
    -- print confusion matrix
    print(confusion)
    confusion:zero()
-
-   -- update log/plot
-   testLogger:add{['% mean class accuracy (test set)'] = confusion.totalValid * 100}
 end
 
 --[[epoch=1
